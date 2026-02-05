@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vahnara AI Studio | Infinite Creations</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --accent: #ec4899;
+            --dark: #0f0f23;
+            --darker: #050510;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--darker);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a0b2e 50%, #0f0f23 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translate(50px, -50px) scale(1.2);
+                opacity: 0.6;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 15, 35, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            padding: 15px 8%;
+            background: rgba(15, 15, 35, 0.95);
+        }
+
+        .logo img {
+            height: 60px;
+            /* Adjust size as needed */
+            width: auto;
+            vertical-align: middle;
+        }
+
+
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            /* Limit text width */
+            margin-bottom: 30px;
+            /* Reduced margin for split layout */
+            text-align: left;
+            /* Prepare for split layout desktop */
+            z-index: 10;
+            animation: fadeInUp 1s ease;
+            flex: 1;
+            /* Take up half space */
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .hero .tagline {
+            font-size: 32px;
+            font-weight: 300;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-style: italic;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #b8b8d1;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.8s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-start;
+            /* Left align buttons */
+            animation: fadeInUp 1s ease 1s backwards;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 18px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 1s ease 0.5s backwards;
+            position: relative;
+        }
+
+        .hero-image {
+            max-width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.3s;
+        }
+
+        .hero-image:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.02);
+        }
+
+        /* Portfolio Section Refactor */
+        #portfolio {
+            position: relative;
+            background-image: url('images/portfolio-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            /* Parallax effect */
+            padding: 120px 8%;
+        }
+
+        /* Dark overlay for readability */
+        #portfolio::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 35, 0.9);
+            /* Heavy dark overlay */
+            z-index: 0;
+        }
+
+        #portfolio .section-header,
+        #portfolio .services-grid {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Profile Cards */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+
+        .profile-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .profile-link {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-link a {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .profile-link a:hover {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Visual Impact Section */
+        .visual-impact {
+            padding: 80px 8%;
+            background: rgba(255, 255, 255, 0.02);
+            text-align: center;
+        }
+
+        .impact-image-container {
+            max-width: 1000px;
+            margin: 40px auto 0;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+            position: relative;
+        }
+
+        .impact-image-container img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 8%;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 56px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: #b8b8d1;
+            font-weight: 500;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 120px 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 80px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 52px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #b8b8d1;
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 50px 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .service-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon {
+            font-size: 64px;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+
+        .service-card h3 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            color: #b8b8d1;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .service-features li {
+            padding: 8px 0;
+            color: #9898b8;
+            font-size: 14px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 120px 8%;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .steps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-top: 80px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .step h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .step p {
+            color: #b8b8d1;
+            line-height: 1.7;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 120px 8%;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 80px auto 0;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 50px 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.4s;
+            text-align: center;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+        }
+
+        .plan-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .plan-price {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .plan-price span {
+            font-size: 20px;
+            color: #b8b8d1;
+        }
+
+        .plan-description {
+            color: #b8b8d1;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .plan-features li {
+            padding: 12px 0;
+            color: #b8b8d1;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 8%;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 80px auto 0;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .testimonial-text {
+            color: #b8b8d1;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .author-info h4 {
+            color: #ffffff;
+            margin-bottom: 3px;
+        }
+
+        .author-info p {
+            color: #9898b8;
+            font-size: 14px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 120px 8%;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 80px auto 0;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 60px 50px;
+            border-radius: 25px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #b8b8d1;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 8% 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer-section p {
+            color: #b8b8d1;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #b8b8d1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .social-links svg {
+            display: block;
+            border-radius: 50%;
+            /* Optional: slight shadow for depth if desired */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+            color: #9898b8;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero .tagline {
+                font-size: 22px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero {
+                flex-direction: column-reverse;
+                /* Stack image on top of text on mobile? or confirm layouts. Usually Column-reverse puts text (1st child) on bottom. Let's stick to column for text top, image bottom. */
+                flex-direction: column;
+                text-align: center;
+                padding-top: 120px;
+            }
+
+            .hero-content {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+
+            .hero-image {
+                transform: none;
+                margin-top: 30px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .services-grid,
+            .pricing-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 15px 5%;
+            }
+
+            .hero,
+            .services,
+            .how-it-works,
+            .pricing,
+            .testimonials,
+            .contact {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#home" class="logo">
+            <img src="images/logo.png" alt="Vahnara AI Studio">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact" class="nav-cta">Get Started</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-tag">✨ Digital Creator & AI Artist</div>
+            <h1>Vahnara AI Studio</h1>
+            <p class="tagline">Infinite Creations</p>
+            <p>I create stunning AI-generated video content that captivates audiences. From viral shorts to immersive
+                storytelling, explore the future of digital art through my lens.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn-primary">Collaborate With Me</a>
+                <a href="#portfolio" class="btn-secondary">Watch My Work</a>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <img src="images/hero-collab.jpg" alt="Vahnara AI Studio Collaboration" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Videos Created</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100k+</div>
+                <div class="stat-label">Views Generated</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Brand Collaborations</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Daily</div>
+                <div class="stat-label">New Content</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section (Formerly Services) -->
+    <section class="services fade-in" id="portfolio">
+        <div class="section-header">
+            <div class="section-tag">My Work</div>
+            <h2 class="section-title">Latest Creations</h2>
+            <p class="section-description">A curated selection of my latest viral AI videos. I blend creativity with
+                technology to tell stories that matter.</p>
+        </div>
+
+        <!-- Banner removed, now used as background -->
+
+        <div class="services-grid"
+            style="grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto;">
+            <!-- YouTube Profile Card -->
+            <div class="profile-card">
+                <img src="images/youtube-profile.png" alt="YouTube Profile">
+                <div class="profile-link">
+                    <a href="http://www.youtube.com/@Vahnara" target="_blank">Visit YouTube Channel</a>
+                </div>
+            </div>
+
+            <!-- Instagram Profile Card -->
+            <div class="profile-card">
+                <img src="images/insta-profile.png" alt="Instagram Profile">
+                <div class="profile-link">
+                    <a href="https://www.instagram.com/vahnara/" target="_blank">View Instagram Profile</a>
+                </div>
+            </div>
+
+            <!-- Facebook Profile Card -->
+            <div class="profile-card">
+                <img src="images/fb-profile.png" alt="Facebook Profile">
+                <div class="profile-link">
+                    <a href="https://www.facebook.com/profile.php?id=61584483670709" target="_blank">View Facebook
+                        Page</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Testimonials -->
+    <section class="testimonials fade-in" id="testimonials">
+        <div class="section-header">
+            <div class="section-tag">Feedback</div>
+            <h2 class="section-title">What Brands Say</h2>
+            <p class="section-description">Partnering with brands to deliver exceptional results</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Vahnara's creativity is unmatched using AI tools. The video created for our
+                    launch went viral and brought in thousands of new eyes to our product."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SK</div>
+                    <div class="author-info">
+                        <h4>Sarah Kim</h4>
+                        <p>Marketing Director, TechFlow</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"Professional, fast, and incredibly talented. Vahnara understands how to use
+                    AI to tell a compelling story that resonates with the audience."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MR</div>
+                    <div class="author-info">
+                        <h4>Michael Rodriguez</h4>
+                        <p>CEO, GrowthHub</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Impact Section -->
+    <section class="visual-impact fade-in">
+        <div class="section-header">
+            <div class="section-tag">Transformation</div>
+            <h2 class="section-title">The AI Limitless Difference</h2>
+            <p class="section-description">See how AI transforms ordinary concepts into extraordinary visual
+                experiences.</p>
+        </div>
+        <div class="impact-image-container">
+            <img src="images/transformation.jpg" alt="Before and After AI Transformation">
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact fade-in" id="contact">
+        <div class="section-header">
+            <div class="section-tag">Get In Touch</div>
+            <h2 class="section-title">Business Inquiries</h2>
+            <p class="section-description">Interested in collaborating or sponsoring content? Send me a message
+                directly.</p>
+        </div>
+        <div class="contact-container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <p style="font-size: 18px; color: #b8b8d1;">Preferred Email for Collaborations:</p>
+                <a href="mailto:vahnaraempire@gmail.com"
+                    style="font-size: 24px; color: var(--primary); text-decoration: none; font-weight: 700;">vahnaraempire@gmail.com</a>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label>Your Name / Brand</label>
+                    <input type="text" name="name" placeholder="Enter name" required>
+                </div>
+                <!-- <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="your@email.com" required>
+                </div> -->
+                <div class="form-group">
+                    <label>Inquiry Type</label>
+                    <input type="text" name="subject" placeholder="Sponsorship / Collaboration / Commission">
+                </div>
+                <div class="form-group">
+                    <label>Message Details</label>
+                    <textarea name="message" placeholder="Tell me about your proposal..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Vahnara</h3>
+                <p>Digital Creator & AI Artist. Creating the future of content, one video at a time.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=61584483670709" target="_blank"
+                        rel="noopener noreferrer" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+                            <circle cx="24" cy="24" r="24" fill="#1877F2" />
+                            <path fill="#ffffff"
+                                d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.733,0-8.55,2.895-8.55,8.783v2.458h-3.844v4.995h3.844v13.911c0,0,0,0,0,0c1.777,0.3,3.618,0.46,5.51,0.46c0.597,0,1.185-0.016,1.77-0.047L26.572,29.036L26.572,29.036z" />
+                        </svg>
+                    </a>
+                    <a href="http://www.youtube.com/@Vahnara" target="_blank" rel="noopener noreferrer"
+                        aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+                            <path fill="#FF0000"
+                                d="M43.2,33.9c-0.4,2.1-2.1,3.7-4.2,4c-3.3,0.5-8.8,1.1-15,1.1c-6.1,0-11.6-0.6-15-1.1c-2.1-0.3-3.8-1.9-4.2-4C4.4,31.6,4,28.2,4,24c0-4.2,0.4-7.6,0.8-9.9c0.4-2.1,2.1-3.7,4.2-4C12.3,9.6,17.8,9,24,9c6.2,0,11.6,0.6,15,1.1c2.1,0.3,3.8,1.9,4.2,4c0.4,2.3,0.9,5.7,0.9,9.9C44.1,28.2,43.6,31.6,43.2,33.9z" />
+                            <path fill="#FFF" d="M20,31l10-7l-10-7V31z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/vahnara/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+                            <radialGradient id="rg_insta" cx="19.38" cy="42.035" r="44.887"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#f09433" />
+                                <stop offset="0.25" stop-color="#e6683c" />
+                                <stop offset="0.5" stop-color="#dc2743" />
+                                <stop offset="0.75" stop-color="#cc2366" />
+                                <stop offset="1" stop-color="#bc1888" />
+                            </radialGradient>
+                            <path fill="url(#rg_insta)" d="M24,4C13,4,4,13,4,24s9,20,20,20s20-9,20-20S35,4,24,4z" />
+                            <path fill="#FFF"
+                                d="M24,14c-5.5,0-10,4.5-10,10s4.5,10,10,10s10-4.5,10-10S29.5,14,24,14z M24,30c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S27.3,30,24,30z" />
+                            <circle cx="34.5" cy="13.5" r="2.5" fill="#FFF" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Explore</h3>
+                <ul class="footer-links">
+                    <li><a href="#portfolio">Latest Work</a></li>
+                    <li><a href="#services">Collaboration</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:vahnaraempire@gmail.com">vahnaraempire@gmail.com</a></li>
+                    <li><a href="#">Business Inquiries Only</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vahnara. All rights reserved. | Imaginations Limitless</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://ztyawbtonzdsclawazvd.supabase.co'
+        const supabaseKey = 'sb_publishable_b7-so1GA_Fia0xNwnJJAwQ_F5fG4HGn'
+        const { createClient } = supabase
+        const _supabase = createClient(supabaseUrl, supabaseKey)
+
+        // Particle animation
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 4 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission Handling
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // UI Feedback
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = 'Processing...';
+            submitBtn.disabled = true;
+
+            const form = e.target;
+            const name = form.elements['name'].value;
+            const subject = form.elements['subject'].value || 'General Inquiry';
+            const message = form.elements['message'].value;
+
+            // 1. Save to Database (Backup)
+            try {
+                await _supabase
+                    .from('contact_submissions')
+                    .insert([{ name: name, subject: subject, message: message }]);
+            } catch (error) {
+                console.error('Supabase Backup Error:', error);
+            }
+
+            // 2. Open Gmail Compose Window (User Preference)
+            const body = `Name: ${name}\n\nMessage:\n${message}`;
+            const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=vahnaraempire@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            // Use a temporary link to open in new tab
+            const link = document.createElement('a');
+            link.href = gmailLink;
+            link.target = '_blank';
+            link.click();
+
+            alert("✓ Opening Gmail...\n\nWe've saved a backup of your message, and now we're opening Gmail for you to hit 'Send'.");
+
+            form.reset();
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        });
+    </script>
+</body>
+
+</html>
